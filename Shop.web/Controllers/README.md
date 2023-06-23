@@ -31,3 +31,24 @@
             return View("Index");//error
         }
         ```
+### IEnumerable vs List
+```
+IEnumerable<User> objUserList = _context.Users; // can use any of them
+            //var objUserList = _context.Users.ToList();
+```
+here IEnumerable is preferable because u can perform additional operations or apply filtering on the user data, using IEnumerable<User> 
+here is some example
+```
+IEnumerable<User> usersList = _context.Users;
+
+// Apply filtering
+usersList = usersList.Where(u => u.IsActive);
+
+// Apply sorting
+usersList = usersList.OrderBy(u => u.LastName);
+
+// Retrieve the data
+var userList = usersList.ToList();
+
+return View(userList);
+```
