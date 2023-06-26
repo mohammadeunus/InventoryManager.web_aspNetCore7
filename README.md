@@ -45,6 +45,27 @@ DreamHomeFinder is a web application designed to help users find their dream hom
     }
     ```
 - Autofac: After that, you can proceed with configuring the dependency injection container, such as Autofac.
+    - set the following code below line : `var builder = WebApplication.CreateBuilder(args);`
+    ```
+    builder.Host.UseServiceProviderFactory(new AutoFacServiceProviderFactory());
+    builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => {
+        containerBuilder
+            .RegisterModule(new WebModule());
+    });
+    ```
+    - then create the webModule in a new class as follows
+    ```
+    using serilog;
+    public class WebModule: Module{
+        protected override void Load(ContainerBuilder builder){
+            builder.RegisterType<TestClass>().As<ITestClass1>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<IndexModel>().AsSelf();
+            
+            base.Load(builder);
+        }
+    }
+    ```
 
 ## Usage
 
