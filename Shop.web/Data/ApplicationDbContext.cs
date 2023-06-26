@@ -4,7 +4,7 @@ using Shop.web.Models;
 
 namespace Shop.web.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -13,4 +13,4 @@ namespace Shop.web.Data
 
         public DbSet<User> Users { get; set; }
     }
-}
+} 
