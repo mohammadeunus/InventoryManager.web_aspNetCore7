@@ -4,9 +4,11 @@
 DreamHomeFinder is a web application designed to help users find their dream homes and facilitate the process of buying a house. It provides a user-friendly interface and powerful search functionality to simplify the house hunting experience.
 
 
-## Installation
+## Project creatation
 
-Outline the steps required to set up and run the project locally. Include any dependencies or prerequisites that need to be installed.
+### step1: 
+- Serilog: the first configuration you typically set up is the logger configuration, such as Serilog. 
+- Autofac: After that, you can proceed with configuring the dependency injection container, such as Autofac.
 
 ## Usage
 
