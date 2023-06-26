@@ -4,10 +4,46 @@
 DreamHomeFinder is a web application designed to help users find their dream homes and facilitate the process of buying a house. It provides a user-friendly interface and powerful search functionality to simplify the house hunting experience.
 
 
-## Project creatation
+## Project creation
 
 ### step1: 
 - Serilog: the first configuration you typically set up is the logger configuration, such as Serilog. 
+    - add the following configuration in `appsettings.json`
+    ```
+    "serilog":{
+        "writeTo": [
+            {
+                "Name": "File",
+                "Args": {
+                    "path": "Logs/web-log-.log",
+                    "rollingInterval": "Day"
+                }
+            }
+        ]
+    }
+    ```
+    - add following code in `program.cs` aboce `var app = builder.Build()`
+    ```
+    builder.Host.UserSerilog((ctx,lc)=>lc)
+        .MinimumLevel.Debug()
+        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+        .Enrich.FromLogContext()
+        .ReadFrom.Configuration(builder.Configuration));
+    ```
+    - also modify `app.Run()`
+    to following
+    ```
+    try{
+        Log.Information("Application Starting Up");
+        app.Run();
+    }
+    catch(Exception ex){
+        Log.Fatal(ex, "Application start-up failed");
+    }
+    finally{
+        Log.CloseAndFlush();
+    }
+    ```
 - Autofac: After that, you can proceed with configuring the dependency injection container, such as Autofac.
 
 ## Usage
