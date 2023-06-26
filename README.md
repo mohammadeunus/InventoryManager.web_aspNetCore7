@@ -6,8 +6,8 @@ DreamHomeFinder is a web application designed to help users find their dream hom
 
 ## Project creation
 
-### step1: 
-- Serilog: the first configuration you typically set up is the logger configuration, such as Serilog. 
+### Step1: 
+- **Serilog**: the first configuration you typically set up is the logger configuration, such as Serilog. 
     - add the following configuration in `appsettings.json`
     ```
     "serilog":{
@@ -44,7 +44,7 @@ DreamHomeFinder is a web application designed to help users find their dream hom
         Log.CloseAndFlush();
     }
     ```
-- Autofac: After that, you can proceed with configuring the dependency injection container, such as Autofac.
+- **Autofac**: After that, you can proceed with configuring the dependency injection container, such as Autofac.
     - set the following code below line : `var builder = WebApplication.CreateBuilder(args);`
     ```
     builder.Host.UseServiceProviderFactory(new AutoFacServiceProviderFactory());
