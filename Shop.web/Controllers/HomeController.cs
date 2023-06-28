@@ -15,6 +15,7 @@ namespace Shop.web.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("currently in home index");
             return View();
         }
 

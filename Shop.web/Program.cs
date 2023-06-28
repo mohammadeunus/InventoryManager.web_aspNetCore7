@@ -35,10 +35,9 @@ builder.Host.UseSerilog((ctx, lc) => lc
 
 try
 {
+    var app = builder.Build();
     Log.Information("Application Starting Up");
 
-    var app = builder.Build();
-    
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
