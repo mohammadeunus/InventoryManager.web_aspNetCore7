@@ -11,6 +11,8 @@ namespace Shop.web.Models
         [MaxLength(40)]
         public string Name { get; set; }
         [EmailAddress]
+        [Required]
+        [StringLength(100)]
         public string Email { get; set; }
         [MaxLength(50)]
         public string Phone { get; set; }

@@ -14,6 +14,8 @@ namespace Shop.web.Models
         public int TotalQty { get; set; }
         public Decimal TotalVat { get; set; }
         public Decimal TotalDiscount { get; set; }
+        [Required]
+        [MaxLength(50)]
         public string CreatedBy { get; set; }
 
         [Required]
@@ -27,8 +29,6 @@ namespace Shop.web.Models
         public DateTime UpdatedDate { get; set; }
         public int CustomerId { get; set;}
         [ForeignKey("CustomerId")]
-        public CustomerModel customers { get; set; }
-
-
+        public CustomerModel customers { get; set; } 
     }
 }

@@ -12,8 +12,11 @@ namespace Shop.web.Models
         [MaxLength(40)]
         public string? name { get; set; }
         [EmailAddress]
+        [Required]
+        [StringLength(100)]
         public string? email { get; set; }
         [Required]
+        [StringLength(100),MinLength(8)]
         public string? password { get; set; }
         public bool isDelete { get; set; }
     }
