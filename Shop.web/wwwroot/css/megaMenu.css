@@ -1,0 +1,11 @@
+﻿.dropdown-hover:hover > .dropdown-menu {
+    display: inline-block;
+}
+
+.dropdown-hover > .dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+.text-blue {
+     color: #496AA3;
+}

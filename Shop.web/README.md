@@ -40,3 +40,9 @@ create entity using the following migrations command in Package Manager Console,
               `dotnet ef database update --project EntityFrameWorkExample --context ApplicationDBContext` 
     - this is a one to many relationship
         */
+
+## Errors Solved
+- action `saveCategory` validated whether model `Category` has all the required field inserted or not. 
+    - since i didn't want to add some data in required field, i removed some required field from model. 
+        - but it was not reflecting on the `modelstate`
+            - so added the `modelstate.clear()`, in the action and it worked.

@@ -1,0 +1,28 @@
+﻿@model Shop.web.Models.CategoryModel
+
+@{
+    ViewData["Title"] = "CategoryEntry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Category Entry</h1>
+ 
+<hr />
+
+@using (Html.BeginForm("SaveCategory", "ProductModels", FormMethod.Post))
+{
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <br />
+
+    <input type="submit" value="Save" class="btn btn-primary" />
+}
+
+<hr />
+<div>
+    <a asp-action="Index">Category Database</a>
+</div>
+
