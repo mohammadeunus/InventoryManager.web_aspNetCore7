@@ -7,7 +7,7 @@ namespace Shop.web.Models
     [Table("Admins")]
     public class AdminModel
     {
-        [Key] 
+        [Key]
         public int UserName { get; set; }
         [MaxLength(40)]
         public string? Name { get; set; }
@@ -19,6 +19,5 @@ namespace Shop.web.Models
         [StringLength(100),MinLength(8)]
         public string? Password { get; set; }
         public bool IsDelete { get; set; }
- 
     }
 }
