@@ -22,24 +22,26 @@ namespace Shop.web.Controllers
         }
 
         // GET: ProductModels
-        // GET: /Category/CategoryEntry
-        public IActionResult CategoryEntry()
+        // GET: /Product/ProductEntry
+        public IActionResult ProductEntry()
         { 
             return View();
         }
          
-        public IActionResult SaveCategory(CategoryModel model)
+        public IActionResult SaveProduct(ProductModel model)
         {
-            _logger.LogInformation("ProductModels/SaveCategory action was called.");
+            _logger.LogInformation("ProductModels/SaveProduct action was called.");
 
             // Set the current time for CreatedDate and UpdatedDate properties
             model.CreatedDate = DateTime.Now;
             model.CreatedBy = "Eunus";
-             
+            ModelState.Clear();
+
+
             if (ModelState.IsValid)
-            { 
-                // Process and save the category data
-                _context.categories.Add(model);
+            {
+                // Process and save the Product data
+                _context.products.Add(model);
                 _context.SaveChanges();
 
                 // Redirect to a different page after successful submission
@@ -59,14 +61,14 @@ namespace Shop.web.Controllers
             }
 
 
-            // If the model state is not valid, return to the CategoryEntry view with validation errors
-            return View("CategoryEntry", model);
+            // If the model state is not valid, return to the ProductEntry view with validation errors
+            return View("ProductEntry", model);
         }
 
 
         public IActionResult index()
         {
-            return View(_context.categories);
+            return View(_context.products);
         } 
         
     }

@@ -23,26 +23,23 @@ namespace Shop.web.Models
         public decimal DiscountPercent { get; set; }
 
         [MaxLength(200)]
-        public string Description { get; set; }
-
-        [Required]
+        public string? Description { get; set; }
+         
         [MaxLength(50)]
-        public string CreatedBy { get; set; }
-
-        [Required]
+        public string? CreatedBy { get; set; }
+         
         [MaxLength(50)]
-        public string UpdatedBy { get; set; }
-
-        [Required]
+        public string? UpdatedBy { get; set; }
+         
         public DateTime CreatedDate { get; set; }
-
-        [Required]
+         
         public DateTime UpdatedDate { get; set; }
           
-        public SalesDetailsModel SalesDetails { get; set; }
-        public StockModel Stocks { get; set; }
+        public SalesDetailsModel? SalesDetails { get; set; }
+        public StockModel? Stocks { get; set; }
+        public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
-        public CategoryModel Category { get; set; }
+        public CategoryModel? Category { get; set; }
 
     }
 }
