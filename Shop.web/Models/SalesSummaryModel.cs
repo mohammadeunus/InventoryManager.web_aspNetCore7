@@ -29,6 +29,6 @@ namespace Shop.web.Models
         public DateTime UpdatedDate { get; set; }
         public int CustomerId { get; set;}
         [ForeignKey("CustomerId")]
-        public CustomerModel customers { get; set; } 
+        public CustomerModel Customers { get; set; } 
     }
 }

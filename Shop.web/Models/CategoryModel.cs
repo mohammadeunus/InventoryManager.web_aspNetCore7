@@ -14,16 +14,16 @@ namespace Shop.web.Models
         
         [Required]
         [MaxLength(50)]
-        public string createdBy { get; set; }
+        public string CreatedBy { get; set; }
         [Required]
         [MaxLength(50)]
-        public string updatedBy { get; set; }
+        public string UpdatedBy { get; set; }
         [Required]
-        public DateTime createdDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         [Required]
-        public DateTime updatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
 
         [Required] 
-        public ICollection<ProductModel> product { get; set; }
+        public ICollection<ProductModel> Product { get; set; }
     }
 }

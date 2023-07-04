@@ -8,16 +8,16 @@ namespace Shop.web.Models
     public class AdminModel
     {
         [Key]
-        public int userName { get; set; }
+        public int UserName { get; set; }
         [MaxLength(40)]
-        public string? name { get; set; }
+        public string? Name { get; set; }
         [EmailAddress]
         [Required]
         [StringLength(100)]
-        public string? email { get; set; }
+        public string? Email { get; set; }
         [Required]
         [StringLength(100),MinLength(8)]
-        public string? password { get; set; }
-        public bool isDelete { get; set; }
+        public string? Password { get; set; }
+        public bool IsDelete { get; set; }
     }
 }
