@@ -17,6 +17,7 @@ namespace Shop.web.Controllers
         {
             //top ten customer within 20 days
             _logger.LogInformation("home/Index action was called.");
+
             return View();
         }
 

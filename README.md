@@ -4,9 +4,68 @@
 DreamHomeFinder is a web application designed to help users find their dream homes and facilitate the process of buying a house. It provides a user-friendly interface and powerful search functionality to simplify the house hunting experience.
 
 
-## Installation
+## Project creation
 
-Outline the steps required to set up and run the project locally. Include any dependencies or prerequisites that need to be installed.
+### Step1: 
+- **Serilog**: the first configuration you typically set up is the logger configuration, such as Serilog. 
+    - add the following configuration in `appsettings.json`
+    ```
+    "serilog":{
+        "writeTo": [
+            {
+                "Name": "File",
+                "Args": {
+                    "path": "Logs/web-log-.log",
+                    "rollingInterval": "Day"
+                }
+            }
+        ]
+    }
+    ```
+    - add following code in `program.cs` aboce `var app = builder.Build()`
+    ```
+    builder.Host.UserSerilog((ctx,lc)=>lc)
+        .MinimumLevel.Debug()
+        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+        .Enrich.FromLogContext()
+        .ReadFrom.Configuration(builder.Configuration));
+    ```
+    - also modify `app.Run()`
+    to following
+    ```
+    try{
+        Log.Information("Application Starting Up");
+        app.Run();
+    }
+    catch(Exception ex){
+        Log.Fatal(ex, "Application start-up failed");
+    }
+    finally{
+        Log.CloseAndFlush();
+    }
+    ```
+- **Autofac**: After that, you can proceed with configuring the dependency injection container, such as Autofac.
+    - set the following code below line : `var builder = WebApplication.CreateBuilder(args);`
+    ```
+    builder.Host.UseServiceProviderFactory(new AutoFacServiceProviderFactory());
+    builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => {
+        containerBuilder
+            .RegisterModule(new WebModule());
+    });
+    ```
+    - then create the webModule in a new class as follows
+    ```
+    using serilog;
+    public class WebModule: Module{
+        protected override void Load(ContainerBuilder builder){
+            builder.RegisterType<TestClass>().As<ITestClass1>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<IndexModel>().AsSelf();
+            
+            base.Load(builder);
+        }
+    }
+    ```
 
 ## Usage
 

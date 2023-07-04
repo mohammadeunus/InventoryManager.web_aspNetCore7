@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
+
 namespace Shop.web.Models
 {
     [Table("Categories")]
@@ -12,6 +13,7 @@ namespace Shop.web.Models
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
+
          
         [MaxLength(50)]
         public string? CreatedBy { get; set; } 
@@ -20,5 +22,6 @@ namespace Shop.web.Models
         public DateTime CreatedDate { get; set; } 
         public DateTime UpdatedDate { get; set; }
         public ICollection<ProductModel>? Product { get; set; }
+
     }
 }
