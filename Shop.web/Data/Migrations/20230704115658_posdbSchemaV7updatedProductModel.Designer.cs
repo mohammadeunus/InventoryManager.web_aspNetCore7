@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.web.Data;
 
@@ -11,9 +12,11 @@ using Shop.web.Data;
 namespace Shop.web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230704115658_posdbSchemaV7updatedProductModel")]
+    partial class posdbSchemaV7updatedProductModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,6 +334,7 @@ namespace Shop.web.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -338,6 +342,7 @@ namespace Shop.web.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -353,6 +358,7 @@ namespace Shop.web.Data.Migrations
                         .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("UpdatedBy")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -616,9 +622,11 @@ namespace Shop.web.Data.Migrations
 
             modelBuilder.Entity("Shop.web.Models.ProductModel", b =>
                 {
-                    b.Navigation("SalesDetails");
+                    b.Navigation("SalesDetails")
+                        .IsRequired();
 
-                    b.Navigation("Stocks");
+                    b.Navigation("Stocks")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
