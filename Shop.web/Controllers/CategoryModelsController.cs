@@ -10,12 +10,12 @@ using Shop.web.Models;
 
 namespace Shop.web.Controllers
 {
-    public class ProductModelsController : Controller
+    public class CategoryModelsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<HomeController> _logger;
 
-        public ProductModelsController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public CategoryModelsController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
             _context = context;
