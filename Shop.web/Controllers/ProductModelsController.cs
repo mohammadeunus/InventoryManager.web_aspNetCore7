@@ -37,14 +37,15 @@ namespace Shop.web.Controllers
                 // Set the current time for CreatedDate and UpdatedDate properties
                 model.CreatedDate = DateTime.Now;
                 model.CreatedBy = "Eunus";
-                model.CategoryId = 1;
-                ModelState.Clear();
+                model.CategoryId = 1; 
 
                 if (ModelState.IsValid)
                 {
                     // Process and save the Product data
                     _context.products.Add(model);
                     _context.SaveChanges();
+
+                    ModelState.Clear();
 
                     // Redirect to a different page after successful submission
                     return RedirectToAction("index");
@@ -59,7 +60,6 @@ namespace Shop.web.Controllers
                             _logger.LogInformation("ModelState is not valid: " + error.ErrorMessage);
                         }
                     }
-                    ModelState.Clear();
                 }
 
                 // If the model state is not valid, return to the ProductEntry view with validation errors
