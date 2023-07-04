@@ -35,6 +35,7 @@ namespace Shop.web.Controllers
             // Set the current time for CreatedDate and UpdatedDate properties
             model.CreatedDate = DateTime.Now;
             model.CreatedBy = "Eunus";
+            model.CategoryId = 1;
             ModelState.Clear();
 
 
