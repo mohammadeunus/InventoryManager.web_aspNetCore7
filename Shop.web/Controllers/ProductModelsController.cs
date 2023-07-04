@@ -13,9 +13,11 @@ namespace Shop.web.Controllers
     public class ProductModelsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<HomeController> _logger;
 
-        public ProductModelsController(ApplicationDbContext context)
+        public ProductModelsController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
+            _logger = logger;
             _context = context;
         }
 
@@ -28,12 +30,14 @@ namespace Shop.web.Controllers
          
         public IActionResult SaveCategory(CategoryModel model)
         {
-            if (ModelState.IsValid)
-            {
-                // Set the current time for CreatedDate and UpdatedDate properties
-                model.CreatedDate = DateTime.Now;
-                model.CreatedBy = "Eunus";
+            _logger.LogInformation("ProductModels/SaveCategory action was called.");
 
+            // Set the current time for CreatedDate and UpdatedDate properties
+            model.CreatedDate = DateTime.Now;
+            model.CreatedBy = "Eunus";
+             
+            if (ModelState.IsValid)
+            { 
                 // Process and save the category data
                 _context.categories.Add(model);
                 _context.SaveChanges();
@@ -41,6 +45,19 @@ namespace Shop.web.Controllers
                 // Redirect to a different page after successful submission
                 return RedirectToAction("index");
             }
+            if (!ModelState.IsValid)
+            {
+                _logger.LogInformation("ModelState is not Valid: In ProductModels/SaveCategory.");
+                foreach (var modelStateEntry in ModelState.Values)
+                {
+                    foreach (var error in modelStateEntry.Errors)
+                    {
+                        _logger.LogInformation("ModelState is not Valid: "+ error.ErrorMessage); 
+                    }
+                }
+                ModelState.Clear();
+            }
+
 
             // If the model state is not valid, return to the CategoryEntry view with validation errors
             return View("CategoryEntry", model);

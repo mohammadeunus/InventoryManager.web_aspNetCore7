@@ -6,10 +6,10 @@
 }
 
 <h1>Category Entry</h1>
-
-<h4>ProductModel</h4>
+ 
 <hr />
-@using (Html.BeginForm("SaveCategory", "productModel"))
+
+@using (Html.BeginForm("SaveCategory", "ProductModels", FormMethod.Post))
 {
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
@@ -17,13 +17,12 @@
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <br />
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
-    </div>
+
+    <input type="submit" value="Save" class="btn btn-primary" />
 }
 
-
+<hr />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Category Database</a>
 </div>
 

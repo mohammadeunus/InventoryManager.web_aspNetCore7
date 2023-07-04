@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Shop.web.Models
 {
@@ -11,19 +12,13 @@ namespace Shop.web.Models
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
-        
-        [Required]
+         
         [MaxLength(50)]
-        public string CreatedBy { get; set; }
-        [Required]
+        public string? CreatedBy { get; set; } 
         [MaxLength(50)]
-        public string UpdatedBy { get; set; }
-        [Required]
-        public DateTime CreatedDate { get; set; }
-        [Required]
+        public string? UpdatedBy { get; set; } 
+        public DateTime CreatedDate { get; set; } 
         public DateTime UpdatedDate { get; set; }
-
-        [Required] 
-        public ICollection<ProductModel> Product { get; set; }
+        public ICollection<ProductModel>? Product { get; set; }
     }
 }
