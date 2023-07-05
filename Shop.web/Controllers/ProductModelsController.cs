@@ -25,6 +25,13 @@ namespace Shop.web.Controllers
         // GET: /Product/ProductEntry
         public IActionResult ProductEntry()
         {
+            var modList = new List<SelectListItem>();
+            foreach (var category in _context.categories)
+            {
+                modList.Add(new SelectListItem { Text = category.Name, Value = category.Id.ToString() });
+            }
+            ViewBag.modList = modList;
+
             return View();
         }
 
@@ -37,7 +44,14 @@ namespace Shop.web.Controllers
                 // Set the current time for CreatedDate and UpdatedDate properties
                 model.CreatedDate = DateTime.Now;
                 model.CreatedBy = "Eunus";
-                model.CategoryId = 1; 
+
+                List<int> catId = _context.categories.Select(u => u.Id).ToList();
+                ViewBag.catId = catId;
+                 
+                Dictionary<string, int> categoryDictionary = _context.categories
+                    .ToDictionary(u => u.Name, u => u.Id);
+                ViewBag.categoryDictionary = categoryDictionary;
+                
 
                 if (ModelState.IsValid)
                 {
