@@ -46,3 +46,16 @@ create entity using the following migrations command in Package Manager Console,
     - since i didn't want to add some data in required field, i removed some required field from model. 
         - but it was not reflecting on the `modelstate`
             - so added the `modelstate.clear()`, in the action and it worked.
+- SqlNullValueException: Data is Null. This method or property cannot be called on Null values.
+    - a property `UpdatedBy` in my model was non-nullable, still i was assigning `NULL` value in it. Thus this error occured.
+        - solution: made the property nullabe.
+            before:
+            ```
+            [MaxLength(50)]
+            public string UpdatedBy { get; set; }
+            ```
+            after:
+            ```
+            [MaxLength(50)]
+            public string? UpdatedBy { get; set; }
+            ```
