@@ -21,7 +21,7 @@ namespace Shop.web.Controllers
             _context = context;
         }
 
-        // GET: ProductModels
+        // GET: CategoryModels
         // GET: /Category/CategoryEntry
         public IActionResult CategoryEntry()
         { 
@@ -30,7 +30,7 @@ namespace Shop.web.Controllers
          
         public IActionResult SaveCategory(CategoryModel model)
         {
-            _logger.LogInformation("ProductModels/SaveCategory action was called.");
+            _logger.LogInformation("CategoryModels/SaveCategory action was called.");
 
             // Set the current time for CreatedDate and UpdatedDate properties
             model.CreatedDate = DateTime.Now;
@@ -47,7 +47,7 @@ namespace Shop.web.Controllers
             }
             if (!ModelState.IsValid)
             {
-                _logger.LogInformation("ModelState is not Valid: In ProductModels/SaveCategory.");
+                _logger.LogInformation("ModelState is not Valid: In CategoryModel/SaveCategory.");
                 foreach (var modelStateEntry in ModelState.Values)
                 {
                     foreach (var error in modelStateEntry.Errors)
