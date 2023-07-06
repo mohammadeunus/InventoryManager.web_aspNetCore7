@@ -44,17 +44,11 @@ namespace Shop.web.Controllers
                 // Set the current time for CreatedDate and UpdatedDate properties
                 model.CreatedDate = DateTime.Now;
                 model.CreatedBy = "Eunus";
-
-                List<int> catId = _context.categories.Select(u => u.Id).ToList();
-                ViewBag.catId = catId;
                  
-                Dictionary<string, int> categoryDictionary = _context.categories
-                    .ToDictionary(u => u.Name, u => u.Id);
-                ViewBag.categoryDictionary = categoryDictionary;
-                
 
                 if (ModelState.IsValid)
                 {
+                    
                     // Process and save the Product data
                     _context.products.Add(model);
                     _context.SaveChanges();
@@ -67,11 +61,21 @@ namespace Shop.web.Controllers
                 else
                 {
                     _logger.LogInformation("ModelState is not valid: In ProductModels/SaveCategory.");
-                    foreach (var modelStateEntry in ModelState.Values)
+                    foreach (var keyModelStatePair in ModelState)
                     {
-                        foreach (var error in modelStateEntry.Errors)
+                        var errors = keyModelStatePair.Value.Errors;
+                        if (errors != null && errors.Count > 0)
                         {
-                            _logger.LogInformation("ModelState is not valid: " + error.ErrorMessage);
+                            var key = keyModelStatePair.Key;
+                            var errorMessageArray = errors.Select(error =>
+                            {
+                                return error.ErrorMessage;
+                            }).ToArray();
+
+                            var errorMessages = string.Join(", ", errorMessageArray);
+                            // do something with your keys and errorMessages here
+                            _logger.LogInformation($"ModelState is not valid:{key} has {errorMessages}");
+                            
                         }
                     }
                 }
@@ -91,7 +95,7 @@ namespace Shop.web.Controllers
         {
             try
             {
-                return View(_context.products);
+                return View(_context.products); //_context.products without it the view won't be able to iterate from the products
             }
             catch (Exception ex)
             {

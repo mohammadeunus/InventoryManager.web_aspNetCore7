@@ -35,13 +35,14 @@
             <label asp-for="Description" class="control-label"></label>
             <input asp-for="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
+        </div> 
+
         <div class="mb-3">
-            <label class="form-label">select id</label>
-            <select class="form-select" asp-items="@ViewBag.modList"></select>
-
+            <label asp-for="Category" class="control-label"></label>
+            <select asp-for="CategoryId" asp-items="ViewBag.modList" class="form-select"></select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
-
+         
         <br />
 
         <input type="submit" value="Save" class="btn btn-primary" />
