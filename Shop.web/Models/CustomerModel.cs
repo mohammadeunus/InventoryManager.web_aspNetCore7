@@ -12,13 +12,16 @@ namespace Shop.web.Models
         public string Name { get; set; }
         [EmailAddress]
         [Required]
-        [StringLength(100)]
-        public string Email { get; set; }
+        [StringLength(100),MinLength(5)]
+        public string? Email { get; set; }
         [MaxLength(50)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
         [MaxLength(50)]
-        public string Address { get; set; } 
+        public string? Address { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string? CreatedBy { get; set; } 
+        public DateTime CreatedDate { get; set; }
         public SalesSummaryModel SalesSummary { get; set; }
-
     }
 }
