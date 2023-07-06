@@ -10,22 +10,19 @@ namespace Shop.web.Models
         [Required]
         public int Id { get; set; }
         [MaxLength(50)]
-        public string InvoiceNo { get; set; }
+        public string? InvoiceNo { get; set; }
         public int TotalQty { get; set; }
         public Decimal TotalVat { get; set; }
         public Decimal TotalDiscount { get; set; }
         [Required]
         [MaxLength(50)]
-        public string CreatedBy { get; set; }
-
-        [Required]
+        public string? CreatedBy { get; set; }
+         
         [MaxLength(50)]
-        public string UpdatedBy { get; set; }
-
-        [Required]
+        public string? UpdatedBy { get; set; }
+         
         public DateTime CreatedDate { get; set; }
-
-        [Required]
+         
         public DateTime UpdatedDate { get; set; }
         public int CustomerId { get; set;}
 
