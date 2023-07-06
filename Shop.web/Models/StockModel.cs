@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.VisualBasic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
 
 namespace Shop.web.Models
 {
@@ -10,19 +12,17 @@ namespace Shop.web.Models
         [Required]
         public int Id { get; set; } 
         public int Qty { get; set; }
+        [DataType(DataType.Date)]
         public DateTime ExpiryDate { get; set; }
         [Required]
         [MaxLength(50)]
-        public string CreatedBy { get; set; }
-
-        [Required]
+        public string? CreatedBy { get; set; }
+         
         [MaxLength(50)]
-        public string UpdatedBy { get; set; }
-
-        [Required]
+        public string? UpdatedBy { get; set; }
+         
         public DateTime CreatedDate { get; set; }
-
-        [Required]
+         
         public DateTime UpdatedDate { get; set; }
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
