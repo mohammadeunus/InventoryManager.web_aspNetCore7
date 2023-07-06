@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,52 +22,89 @@ namespace Shop.web.Controllers
         }
 
         // GET: ProductModels
-        // GET: /Category/CategoryEntry
-        public IActionResult CategoryEntry()
-        { 
+        // GET: /Product/ProductEntry
+        public IActionResult ProductEntry()
+        {
+            var modList = new List<SelectListItem>();
+            foreach (var category in _context.categories)
+            {
+                modList.Add(new SelectListItem { Text = category.Name, Value = category.Id.ToString() });
+            }
+            ViewBag.modList = modList;
+
             return View();
         }
-         
-        public IActionResult SaveCategory(CategoryModel model)
+
+        public IActionResult SaveProduct(ProductModel model)
         {
-            _logger.LogInformation("ProductModels/SaveCategory action was called.");
-
-            // Set the current time for CreatedDate and UpdatedDate properties
-            model.CreatedDate = DateTime.Now;
-            model.CreatedBy = "Eunus";
-             
-            if (ModelState.IsValid)
-            { 
-                // Process and save the category data
-                _context.categories.Add(model);
-                _context.SaveChanges();
-
-                // Redirect to a different page after successful submission
-                return RedirectToAction("index");
-            }
-            if (!ModelState.IsValid)
+            try
             {
-                _logger.LogInformation("ModelState is not Valid: In ProductModels/SaveCategory.");
-                foreach (var modelStateEntry in ModelState.Values)
+                _logger.LogInformation("ProductModels/SaveProduct action was called.");
+
+                // Set the current time for CreatedDate and UpdatedDate properties
+                model.CreatedDate = DateTime.Now;
+                model.CreatedBy = "Eunus";
+                 
+
+                if (ModelState.IsValid)
                 {
-                    foreach (var error in modelStateEntry.Errors)
+                    
+                    // Process and save the Product data
+                    _context.products.Add(model);
+                    _context.SaveChanges();
+
+                    ModelState.Clear();
+
+                    // Redirect to a different page after successful submission
+                    return RedirectToAction("index");
+                }
+                else
+                {
+                    _logger.LogInformation("ModelState is not valid: In ProductModels/SaveCategory.");
+                    foreach (var keyModelStatePair in ModelState)
                     {
-                        _logger.LogInformation("ModelState is not Valid: "+ error.ErrorMessage); 
+                        var errors = keyModelStatePair.Value.Errors;
+                        if (errors != null && errors.Count > 0)
+                        {
+                            var key = keyModelStatePair.Key;
+                            var errorMessageArray = errors.Select(error =>
+                            {
+                                return error.ErrorMessage;
+                            }).ToArray();
+
+                            var errorMessages = string.Join(", ", errorMessageArray);
+                            // do something with your keys and errorMessages here
+                            _logger.LogInformation($"ModelState is not valid:{key} has {errorMessages}");
+                            
+                        }
                     }
                 }
-                ModelState.Clear();
+
+                // If the model state is not valid, return to the ProductEntry view with validation errors
+                return View("ProductEntry", model);
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred in ProductModels/SaveProduct");
+                // Optionally, you can handle the exception and show an appropriate error message to the user
+                return View("Error");
+            }
+        }
 
-
-            // If the model state is not valid, return to the CategoryEntry view with validation errors
-            return View("CategoryEntry", model);
+        public IActionResult Index()
+        {
+            try
+            {
+                return View(_context.products); //_context.products without it the view won't be able to iterate from the products
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred in ProductModels/Index");
+                // Optionally, you can handle the exception and show an appropriate error message to the user
+                return View("Error");
+            }
         }
 
 
-        public IActionResult index()
-        {
-            return View(_context.categories);
-        } 
-        
     }
 }
