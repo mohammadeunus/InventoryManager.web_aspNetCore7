@@ -12,13 +12,15 @@ namespace Shop.web.Models
         public string InvoiceNo { get; set; }
         public int SaleQty { get; set; }
         public Decimal Price { get; set;}
+
+        [Column(TypeName = "decimal(5,2)")]
         public decimal VatPercent { get; set; }
         [MaxLength(50)]
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string UpdatedBy { get; set; }
+        public string? UpdatedBy { get; set; }
 
         [Required]
         public DateTime CreatedDate { get; set; }
@@ -29,7 +31,5 @@ namespace Shop.web.Models
         public DateTime UpdatedDate { get; set; }
         [ForeignKey("ProductId")]
         public ProductModel Product { get; set; }
-
-
     }
 }

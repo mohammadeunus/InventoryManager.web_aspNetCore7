@@ -1,33 +1,34 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shop.web.Models
 {
-    [Table("SalesSummaries")]
     public class SalesSummaryModel
     {
         [Key]
         [Required]
         public int Id { get; set; }
         [MaxLength(50)]
-        public string? InvoiceNo { get; set; }
-        public int TotalQty { get; set; }
+        public string InvoiceNo { get; set; }
+        public int TotalQty { get; set; } 
+
+        [Column(TypeName = "decimal(5,2)")]
         public Decimal TotalVat { get; set; }
-        public Decimal TotalDiscount { get; set; }
-        [Required]
+
+        [Column(TypeName = "decimal(5,2)")]
+        public Decimal TotalDiscount { get; set; } 
         [MaxLength(50)]
         public string? CreatedBy { get; set; }
-         
+
         [MaxLength(50)]
         public string? UpdatedBy { get; set; }
-         
+
         public DateTime CreatedDate { get; set; }
-         
+
         public DateTime UpdatedDate { get; set; }
-        public int CustomerId { get; set;}
+        public int CustomerId { get; set; }
 
         [ForeignKey("CustomerId")]
-        public CustomerModel Customers { get; set; } 
-
+        public CustomerModel Customers { get; set; }
     }
 }

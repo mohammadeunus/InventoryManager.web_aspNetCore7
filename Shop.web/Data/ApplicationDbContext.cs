@@ -10,7 +10,6 @@ namespace Shop.web.Data
             : base(options)
         {
         }
-
         public DbSet<AdminModel> admins { get; set; }
         public DbSet<CategoryModel> categories{ get; set; }
         public DbSet<CustomerModel> customers { get; set; } 
@@ -18,7 +17,6 @@ namespace Shop.web.Data
         public DbSet<SalesDetailsModel> salesDetails { get; set; }
         public DbSet<SalesSummaryModel> salesSummaries { get; set; }
         public DbSet<StockModel> stocks { get; set; }
-
 
     }
 } 
