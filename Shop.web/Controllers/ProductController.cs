@@ -8,18 +8,18 @@ using Shop.web.Repositories;
 
 namespace Shop.web.Controllers
 {
-    public class ProductModelsController : Controller
+    public class ProductController : Controller
     {
         private readonly ProductRepository _productRepository;
-        private readonly ILogger<ProductModelsController> _logger;
+        private readonly ILogger<ProductController> _logger;
 
-        public ProductModelsController(ILogger<ProductModelsController> logger, ProductRepository productRepository)
+        public ProductController(ILogger<ProductController> logger, ProductRepository productRepository)
         {
             _logger = logger;
             _productRepository = productRepository;
         }
 
-        // GET: ProductModels
+        // GET: Product
         // GET: /Product/ProductEntry
         public IActionResult ProductEntry()
         {
@@ -33,7 +33,7 @@ namespace Shop.web.Controllers
         {
             try
             {
-                _logger.LogInformation("ProductModels/SaveProduct action was called.");
+                _logger.LogInformation("Product/SaveProduct action was called.");
 
                 if (ModelState.IsValid)
                 {
@@ -56,7 +56,7 @@ namespace Shop.web.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred in ProductModels/SaveProduct"); 
+                _logger.LogError(ex, "An error occurred in Product/SaveProduct"); 
                 return View("Error");
             }
         }
@@ -71,7 +71,7 @@ namespace Shop.web.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred in ProductModels/Index"); 
+                _logger.LogError(ex, "An error occurred in Product/Index"); 
                 return View("Error");
             }
         }
