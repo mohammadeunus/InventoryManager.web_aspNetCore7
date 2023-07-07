@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Core;
 using Shop.web.Repositories;
+using Shop.web.Repository;
 
 internal class WebModule : Module
 {
@@ -14,6 +15,7 @@ internal class WebModule : Module
         /* RegisterType<IndexModel>(), it registers the IndexModel class as a dependency with Autofac.
          * .AsSelf(), it specifies that, Autofac will provide an instance of IndexModel when requested */
         builder.RegisterType<ProductRepository>().AsSelf();
+        builder.RegisterType<SalesSummaryRepository>().AsSelf();
         base.Load(builder);
     }
 }
