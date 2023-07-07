@@ -46,7 +46,7 @@ namespace Shop.web.Controllers
 
                     ViewBag.modList = _salesSummaryRepository.PopulateFKeyDropDownList();
 
-                    return View("ProductEntry", model);
+                    return View("SalesSummaryEntry", model);
                 }
             }
             catch (Exception ex)
