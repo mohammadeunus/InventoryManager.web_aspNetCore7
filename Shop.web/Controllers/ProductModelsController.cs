@@ -1,39 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Shop.web.Data;
+using Microsoft.Extensions.Logging;
 using Shop.web.Models;
+using Shop.web.Repositories;
 
 namespace Shop.web.Controllers
 {
     public class ProductModelsController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly ILogger<HomeController> _logger;
+        private readonly ProductRepository _productRepository;
+        private readonly ILogger<ProductModelsController> _logger;
 
-        public ProductModelsController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public ProductModelsController(ILogger<ProductModelsController> logger, ProductRepository productRepository)
         {
             _logger = logger;
-            _context = context;
+            _productRepository = productRepository;
         }
 
         // GET: ProductModels
         // GET: /Product/ProductEntry
         public IActionResult ProductEntry()
         {
-            var modList = new List<SelectListItem>();
-            foreach (var category in _context.categories)
-            {
-                modList.Add(new SelectListItem { Text = category.Name, Value = category.Id.ToString() });
-            }
-            ViewBag.modList = modList;
+            ViewBag.modList = _productRepository.PopulateCategoryListForDropDown();
 
             return View();
         }
+
 
         public IActionResult SaveProduct(ProductModel model)
         {
@@ -41,70 +35,45 @@ namespace Shop.web.Controllers
             {
                 _logger.LogInformation("ProductModels/SaveProduct action was called.");
 
-                // Set the current time for CreatedDate and UpdatedDate properties
-                model.CreatedDate = DateTime.Now;
-                model.CreatedBy = "Eunus";
-                 
-
                 if (ModelState.IsValid)
                 {
-                    
-                    // Process and save the Product data
-                    _context.products.Add(model);
-                    _context.SaveChanges();
-
+                    _productRepository.AddProduct(model);
                     ModelState.Clear();
 
                     // Redirect to a different page after successful submission
-                    return RedirectToAction("index");
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    _logger.LogInformation("ModelState is not valid: In ProductModels/SaveCategory.");
-                    foreach (var keyModelStatePair in ModelState)
-                    {
-                        var errors = keyModelStatePair.Value.Errors;
-                        if (errors != null && errors.Count > 0)
-                        {
-                            var key = keyModelStatePair.Key;
-                            var errorMessageArray = errors.Select(error =>
-                            {
-                                return error.ErrorMessage;
-                            }).ToArray();
+                    _productRepository.LogValidationErrors(ModelState);
 
-                            var errorMessages = string.Join(", ", errorMessageArray);
-                            // do something with your keys and errorMessages here
-                            _logger.LogInformation($"ModelState is not valid:{key} has {errorMessages}");
-                            
-                        }
-                    }
+                    // If the model state is not valid, return to the ProductEntry view with validation errors
+
+                    ViewBag.modList = _productRepository.PopulateCategoryListForDropDown();
+
+                    return View("ProductEntry", model);
                 }
-
-                // If the model state is not valid, return to the ProductEntry view with validation errors
-                return View("ProductEntry", model);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred in ProductModels/SaveProduct");
-                // Optionally, you can handle the exception and show an appropriate error message to the user
+                _logger.LogError(ex, "An error occurred in ProductModels/SaveProduct"); 
                 return View("Error");
             }
         }
+
 
         public IActionResult Index()
         {
             try
             {
-                return View(_context.products); //_context.products without it the view won't be able to iterate from the products
+                var products = _productRepository.GetAllProducts();
+                return View(products);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred in ProductModels/Index");
-                // Optionally, you can handle the exception and show an appropriate error message to the user
+                _logger.LogError(ex, "An error occurred in ProductModels/Index"); 
                 return View("Error");
             }
         }
-
-
     }
 }
