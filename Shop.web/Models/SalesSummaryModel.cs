@@ -8,8 +8,9 @@ namespace Shop.web.Models
         [Key]
         [Required]
         public int Id { get; set; }
-        [MaxLength(50)]
-        public string InvoiceNo { get; set; }
+        [MaxLength(50)] 
+        public string? InvoiceNo { get; set; }
+ 
         public int TotalQty { get; set; } 
 
         [Column(TypeName = "decimal(5,2)")]
@@ -28,7 +29,8 @@ namespace Shop.web.Models
         public DateTime UpdatedDate { get; set; }
         public int CustomerId { get; set; }
 
-        [ForeignKey("CustomerId")]
-        public CustomerModel Customers { get; set; }
+        [ForeignKey("CustomerId")] 
+        public CustomerModel? Customers { get; set; }
+ 
     }
 }

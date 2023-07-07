@@ -45,8 +45,9 @@ namespace Shop.web.Controllers
                     // If the model state is not valid, return to the SalesSummaryEntry view with validation errors
 
                     ViewBag.modList = _salesSummaryRepository.PopulateFKeyDropDownList();
-
-                    return View("ProductEntry", model);
+ 
+                    return View("SalesSummaryEntry", model);
+ 
                 }
             }
             catch (Exception ex)
