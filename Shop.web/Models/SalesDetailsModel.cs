@@ -2,14 +2,13 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shop.web.Models
-{
-    [Table("SalesDetails")]
+{ 
     public class SalesDetailsModel
     {
         [Required]
         public int Id { get; set;}
         [MaxLength(50)]
-        public string InvoiceNo { get; set; }
+        public string? InvoiceNo { get; set; }
         public int SaleQty { get; set; }
         public Decimal Price { get; set;}
 
@@ -17,19 +16,21 @@ namespace Shop.web.Models
         public decimal VatPercent { get; set; }
         [MaxLength(50)]
         public string? CreatedBy { get; set; }
-
-        [Required]
+         
         [MaxLength(50)]
         public string? UpdatedBy { get; set; }
-
-        [Required]
+         
         public DateTime CreatedDate { get; set; }
-
-        [Required]
-        public int ProductId { get; set; }
-        [Required]
+          
         public DateTime UpdatedDate { get; set; }
+        public int ProductId { get; set; }
         [ForeignKey("ProductId")]
-        public ProductModel Product { get; set; }
+        public ProductModel? Product { get; set; }
+    }
+    public class SalesViewModel
+    {
+        public SalesDetailsModel? SalesDetailsViewModel { get; set; }
+        public IEnumerable<SalesDetailsModel>? saleDetailsListViewModel { get; set; }
+        public StockModel? stockModel { get; set; }
     }
 }

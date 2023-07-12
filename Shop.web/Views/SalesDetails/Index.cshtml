@@ -1,0 +1,71 @@
+﻿@model SalesViewModel
+@{
+    ViewData["Title"] = "index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Sale Entry</h2>
+
+@using (Html.BeginForm("index", "SalesDetails", FormMethod.Post))
+{
+    <div class="mb-3">
+        <label asp-for="@Model.SalesDetailsViewModel.Product.Name" class="control-label"></label>
+        <select asp-for="@Model.SalesDetailsViewModel.ProductId" asp-items="ViewBag.modList" class="form-select"></select>
+        <span asp-validation-for="@Model.SalesDetailsViewModel.ProductId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.SalesDetailsViewModel.SaleQty" class="control-label"></label>
+        <input asp-for="@Model.SalesDetailsViewModel.SaleQty" class="form-control" />
+        <span asp-validation-for="@Model.SalesDetailsViewModel.SaleQty" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Add" class="btn btn-primary" />
+    </div>
+}
+
+<hr />
+<h2>Sales Details</h2>
+<h3>@Html.DisplayNameFor(model => model.SalesDetailsViewModel.InvoiceNo)</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SalesDetailsViewModel.Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalesDetailsViewModel.SaleQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalesDetailsViewModel.Price)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.SalesDetailsViewModel.VatPercent)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.saleDetailsListViewModel)
+        {
+            <tr>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SaleQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VatPercent)
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+
