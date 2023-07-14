@@ -1,4 +1,4 @@
-# BuyingHouseApplication
+# InventoryManager.web_aspNetCore7
 ## Description 
 
 DreamHomeFinder is a web application designed to help users find their dream homes and facilitate the process of buying a house. It provides a user-friendly interface and powerful search functionality to simplify the house hunting experience.
